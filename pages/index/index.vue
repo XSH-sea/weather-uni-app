@@ -12,15 +12,25 @@
 			</view>
 			<!-- 实况天气信息 -->
 			<view class="info">
-				<text class="now-temperature">{{tmp}}</text>
-				<text class="temperature">{{daily_one.tmp}}</text>
-				<text class="weather-info">{{cond_txt}}</text>
-				<text class="aqi">{{aqi}}</text>
+				<view class="tips">当前今日天气</view>
+				<view class="now_info">
+					<view class="now_info_left">
+						<image class="img" src="../../static/weather-icon/100.png" mode=""></image>
+					</view>
+					<view class="now_info_right">
+						<view class="now_tmp">
+							16°
+						</view>
+						<view class="now_situation">
+							雷雨转晴
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<!-- 预报 -->
 		<scroll-view class="scrolling" :style="{height:screenHeight-statusBarHeight-422+'upx'}" scroll-y="true">
-			
+
 			<!-- 生活提示 -->
 			<swiper autoplay="true" interval="5000" vertical="true" circular="true" class="lifestyle">
 				<swiper-item v-for="(val,index) in lifestyle" :key="index" class="lifestyle-inner">
@@ -28,7 +38,7 @@
 					<text class="lifestyle-content">{{val.txt}}</text>
 				</swiper-item>
 			</swiper>
-			
+
 			<!-- 逐小时天气预报 -->
 			<scroll-view class="hourly" scroll-x="true">
 				<view class="w_time">
@@ -37,9 +47,9 @@
 					</view>
 				</view>
 				<view class="w_info">
-			
+
 				</view>
-				
+
 				<canvas canvas-id="myCanvas" class="myCanvas"></canvas>
 				<view class="w_tmp">
 					<view class="tmp_inner" v-for="(val,index) in hourly" :key="index">
@@ -75,7 +85,7 @@
 						<text class="down">日落:{{daily_one.ss}}</text>
 					</view>
 				</view>
-				
+
 				<view v-for="(val,index) in daily" :key="index" class="daily">
 					<view class="date">
 						<text>{{future[index+1].date}}</text>
@@ -104,9 +114,9 @@
 
 			</view>
 
-			
+
 		</scroll-view>
-		
+
 	</view>
 
 </template>
@@ -115,7 +125,7 @@
 	export default {
 		data() {
 			return {
-				changed:0,
+				changed: 0,
 				statusBarHeight: '',
 				screenHeight: '',
 				city: '',
@@ -243,30 +253,29 @@
 						tmp: '21'
 					}
 				],
-				lifestyle:[
-					{
-						type:'穿衣指南',
-						txt:''
+				lifestyle: [{
+						type: '穿衣指南',
+						txt: ''
 					},
 					{
-						type:'旅游指南',
-						txt:''
+						type: '旅游指南',
+						txt: ''
 					},
 					{
-						type:'运动指南',
-						txt:''
+						type: '运动指南',
+						txt: ''
 					},
 					{
-						type:'防晒指南',
-						txt:''
+						type: '防晒指南',
+						txt: ''
 					},
 					{
-						type:'交通指南',
-						txt:''
+						type: '交通指南',
+						txt: ''
 					},
 					{
-						type:'钓鱼指南',
-						txt:''
+						type: '钓鱼指南',
+						txt: ''
 					}
 				],
 				future: [{
@@ -298,95 +307,96 @@
 						week: ''
 					},
 				],
-				daily_one:{
-					tmp:'4~5℃',
-					icon_url_d:'../../static/weather-icon/100.png',
-					icon_url_n:'../../static/weather-icon/100n.png',
-					cond_txt_d:'晴',
-					cond_txt_n:'多云',
-					wind_dir:'西北风',
-					wind_sc:'1-2',
-					sr:'07:36',
-					ss:'19:23'
+				daily_one: {
+					tmp: '4~5℃',
+					icon_url_d: '../../static/weather-icon/100.png',
+					icon_url_n: '../../static/weather-icon/100n.png',
+					cond_txt_d: '晴',
+					cond_txt_n: '多云',
+					wind_dir: '西北风',
+					wind_sc: '1-2',
+					sr: '07:36',
+					ss: '19:23'
 				},
-				daily:[
-					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+				daily: [{
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					},
 					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					},
 					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					},
 					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					},
 					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					},
 					{
-						tmp:'4~5℃',
-						icon_url_d:'../../static/weather-icon/100.png',
-						icon_url_n:'../../static/weather-icon/100n.png',
-						cond_txt_d:'晴',
-						cond_txt_n:'多云',
-						wind_dir:'西北风',
-						wind_sc:'1-2',
-						sr:'07:36',
-						ss:'19:23'
+						tmp: '4~5℃',
+						icon_url_d: '../../static/weather-icon/100.png',
+						icon_url_n: '../../static/weather-icon/100n.png',
+						cond_txt_d: '晴',
+						cond_txt_n: '多云',
+						wind_dir: '西北风',
+						wind_sc: '1-2',
+						sr: '07:36',
+						ss: '19:23'
 					}
 				]
 
 			}
 		},
 		mounted() {
-			
-			this.myAjax({location:101010100,key:	
-"9e62c98f31bf418ca52ae1002c9b5bf7"}).then(res=>{
-				console.log(res,'结果')
-			}).catch(err=>{
-				console.log(err,'错误')
+
+			this.myAjax({
+				location: 101010100,
+				key: "9e62c98f31bf418ca52ae1002c9b5bf7"
+			}).then(res => {
+				console.log(res, '结果')
+			}).catch(err => {
+				console.log(err, '错误')
 			})
 			try {
 				if (!this.city) {
@@ -487,114 +497,116 @@
 				}
 				return e;
 			}
-			
+
 			uni.request({
-					url: 'https://api.heweather.net/s6/weather/now',
+				url: 'https://api.heweather.net/s6/weather/now',
+				data: {
+					location: this.city,
+					key: '415c7d28177f4749b004841b3f77b59c'
+				},
+				success: (res) => {
+					this.tmp = res.data.HeWeather6[0].now.tmp + '℃';
+					this.cond_txt = res.data.HeWeather6[0].now.cond_txt;
+				}
+			});
+
+			//获取生活指数
+			uni.request({
+				url: 'https://api.heweather.net/s6/weather/lifestyle',
+				data: {
+					location: this.city,
+					key: '415c7d28177f4749b004841b3f77b59c'
+				},
+				success: (res) => {
+					var result = res.data.HeWeather6[0].lifestyle;
+					var lifestyle = this.lifestyle;
+					lifestyle[0].txt = result[1].txt;
+					lifestyle[1].txt = result[4].txt;
+					lifestyle[2].txt = result[3].txt;
+					lifestyle[3].txt = result[15].txt;
+					lifestyle[4].txt = result[13].txt;
+					lifestyle[5].txt = result[14].txt;
+				}
+			})
+
+			//获取七天天气预报数据
+			uni.request({
+				url: 'https://api.heweather.net/s6/weather/forecast',
+				data: {
+					location: this.city,
+					key: '415c7d28177f4749b004841b3f77b59c'
+				},
+				success: (res) => {
+					for (var i = 0; i < 7; i++) {
+						var result = res.data.HeWeather6[0].daily_forecast[i]
+						if (i == 0) {
+							var one = this.daily_one;
+							one.sr = result.sr;
+							one.ss = result.ss;
+							this.changed = 1;
+							one.icon_url_d = '../../static/weather-icon/' + result.cond_code_d + '.png';
+							if (result.cond_code_n == 100 || result.cond_code_n == 103 || result.cond_code_n == 104 || result.cond_code_n ==
+								300 || result.cond_code_n == 301 || result.cond_code_n == 406 || result.cond_code_n == 407) {
+								result.cond_code_n = result.cond_code_n + 'n';
+							}
+							one.icon_url_n = '../../static/weather-icon/' + result.cond_code_n + '.png';
+							one.cond_txt_d = result.cond_txt_d;
+							one.cond_txt_n = result.cond_txt_n;
+							one.tmp = result.tmp_min + '~' + result.tmp_max + '℃';
+						} else {
+							this.daily[i - 1].sr = result.sr;
+							this.daily[i - 1].ss = result.ss;
+							this.daily[i - 1].icon_url_d = '../../static/weather-icon/' + result.cond_code_d + '.png';
+							if (result.cond_code_n == 100 || result.cond_code_n == 103 || result.cond_code_n == 104 || result.cond_code_n ==
+								300 || result.cond_code_n == 301 || result.cond_code_n == 406 || result.cond_code_n == 407) {
+								result.cond_code_n = result.cond_code_n + 'n';
+							}
+							this.daily[i - 1].icon_url_n = '../../static/weather-icon/' + result.cond_code_n + '.png';
+							this.daily[i - 1].cond_txt_d = result.cond_txt_d;
+							this.daily[i - 1].cond_txt_n = result.cond_txt_n;
+							this.daily[i - 1].tmp = result.tmp_min + '~' + result.tmp_max + '℃';
+						}
+					}
+
+				}
+
+			})
+
+			//获取24小时天气数据
+			uni.request({
+					url: 'https://api.heweather.net/s6/weather/hourly',
 					data: {
 						location: this.city,
 						key: '415c7d28177f4749b004841b3f77b59c'
 					},
 					success: (res) => {
-						this.tmp=res.data.HeWeather6[0].now.tmp+'℃';
-						this.cond_txt=res.data.HeWeather6[0].now.cond_txt;
+						for (var i = 0; i < 24; i++) {
+							var time = res.data.HeWeather6[0].hourly[i].time.substring(11, 13);
+							var result = res.data.HeWeather6[0].hourly[i];
+							this.hourly[i].time = time + '点';
+							this.hourly[i].cond_txt = result.cond_txt;
+							this.hourly[i].tmp = result.tmp;
+						}
 					}
-				});
-				
-				//获取生活指数
-			uni.request({
-				url:'https://api.heweather.net/s6/weather/lifestyle',
-				data:{
-					location:this.city,
-					key: '415c7d28177f4749b004841b3f77b59c'
-				},
-				success:(res)=>{
-					var result=res.data.HeWeather6[0].lifestyle;
-					var lifestyle=this.lifestyle;
-					lifestyle[0].txt=result[1].txt;
-					lifestyle[1].txt=result[4].txt;
-					lifestyle[2].txt=result[3].txt;
-					lifestyle[3].txt=result[15].txt;
-					lifestyle[4].txt=result[13].txt;
-					lifestyle[5].txt=result[14].txt;
-				}
-			})
-				
-				//获取七天天气预报数据
-			uni.request({
-					url:'https://api.heweather.net/s6/weather/forecast',
-					data:{
+				}),
+
+				//获取空气质量
+				uni.request({
+					url: 'https://api.heweather.net/s6/air',
+					data: {
 						location: this.city,
 						key: '415c7d28177f4749b004841b3f77b59c'
 					},
-					success:(res)=>{
-						for(var i=0;i<7;i++){
-							var result=res.data.HeWeather6[0].daily_forecast[i]
-							if(i==0){
-								var one=this.daily_one;
-								one.sr=result.sr;
-								one.ss=result.ss;
-								this.changed=1;
-								one.icon_url_d='../../static/weather-icon/'+result.cond_code_d+'.png';
-								if(result.cond_code_n==100||result.cond_code_n==103||result.cond_code_n==104||result.cond_code_n==300||result.cond_code_n==301||result.cond_code_n==406||result.cond_code_n==407){
-									result.cond_code_n=result.cond_code_n+'n';
-								}
-								one.icon_url_n='../../static/weather-icon/'+result.cond_code_n+'.png';
-								one.cond_txt_d=result.cond_txt_d;
-								one.cond_txt_n=result.cond_txt_n;
-								one.tmp=result.tmp_min+'~'+result.tmp_max+'℃';
-							}else{
-								this.daily[i-1].sr=result.sr;
-								this.daily[i-1].ss=result.ss;
-								this.daily[i-1].icon_url_d='../../static/weather-icon/'+result.cond_code_d+'.png';
-								if(result.cond_code_n==100||result.cond_code_n==103||result.cond_code_n==104||result.cond_code_n==300||result.cond_code_n==301||result.cond_code_n==406||result.cond_code_n==407){
-									result.cond_code_n=result.cond_code_n+'n';
-								}
-								this.daily[i-1].icon_url_n='../../static/weather-icon/'+result.cond_code_n+'.png';
-								this.daily[i-1].cond_txt_d=result.cond_txt_d;
-								this.daily[i-1].cond_txt_n=result.cond_txt_n;
-								this.daily[i-1].tmp=result.tmp_min+'~'+result.tmp_max+'℃';
-							}
-						}
-						
+					success: (res) => {
+						var aqi = res.data.HeWeather6[0].air_now_city.aqi;
+						var qlty = res.data.HeWeather6[0].air_now_city.qlty;
+						var txt = '空气指数';
+						this.aqi = txt + aqi + ' ' + qlty;
 					}
-					
 				})
-				
-				//获取24小时天气数据
-			uni.request({
-				url:'https://api.heweather.net/s6/weather/hourly',
-				data:{
-					location: this.city,
-					key: '415c7d28177f4749b004841b3f77b59c'
-				},
-				success:(res)=>{
-					for(var i=0;i<24;i++){
-						var time=res.data.HeWeather6[0].hourly[i].time.substring(11,13);
-						var result=res.data.HeWeather6[0].hourly[i];
-						this.hourly[i].time=time+'点';
-						this.hourly[i].cond_txt=result.cond_txt;
-						this.hourly[i].tmp=result.tmp;
-					}					
-				}
-			}),
-				
-				//获取空气质量
-			uni.request({
-				url:'https://api.heweather.net/s6/air',
-				data:{
-					location: this.city,
-					key: '415c7d28177f4749b004841b3f77b59c'
-				},
-				success:(res)=>{
-					var aqi=res.data.HeWeather6[0].air_now_city.aqi;
-					var qlty=res.data.HeWeather6[0].air_now_city.qlty;
-					var txt='空气指数';
-					this.aqi=txt+aqi+' '+qlty;	
-				}
-			})
-			
-			
-			setTimeout(this.drawing,800);
+
+
+			setTimeout(this.drawing, 800);
 		},
 		onLoad: function(option) {
 			if (option.city != undefined) {
@@ -606,52 +618,52 @@
 			this.statusBarHeight = systemInfo.statusBarHeight * 2;
 			//获取屏幕高度
 			this.screenHeight = systemInfo.screenHeight * 2;
-			
-			
-			
-			
-			
+
+
+
+
+
 		},
 		methods: {
 			drawing() {
-				var width = 120/750*uni.getSystemInfoSync().screenWidth;
-				var arr=[];
-				for(var i=0;i<this.hourly.length;i++){
-					arr[i]=this.hourly[i].tmp;
+				var width = 120 / 750 * uni.getSystemInfoSync().screenWidth;
+				var arr = [];
+				for (var i = 0; i < this.hourly.length; i++) {
+					arr[i] = this.hourly[i].tmp;
 				}
-				arr.sort(function(a,b){
-					return a-b;
+				arr.sort(function(a, b) {
+					return a - b;
 				})
-				
-				var max=arr[arr.length-1];
-				var min=arr[0];
+
+				var max = arr[arr.length - 1];
+				var min = arr[0];
 				var height = max - min;
 				var context = uni.createCanvasContext('myCanvas');
-				context.moveTo(width / 2,  8+40 / height * (max - this.hourly[0].tmp));
+				context.moveTo(width / 2, 8 + 40 / height * (max - this.hourly[0].tmp));
 				context.setStrokeStyle('#0e5cad');
 				for (var i = 1; i < this.hourly.length; i++) {
-					context.lineTo(width / 2 + width * i, 8+40 / height * (max - this.hourly[i].tmp));
+					context.lineTo(width / 2 + width * i, 8 + 40 / height * (max - this.hourly[i].tmp));
 					context.setStrokeStyle('#0e5cad');
 				}
 				context.stroke();
-				
+
 				context.beginPath()
-				context.arc(width / 2,  8+40 / height * (max - this.hourly[0].tmp),3,0,2*Math.PI);
+				context.arc(width / 2, 8 + 40 / height * (max - this.hourly[0].tmp), 3, 0, 2 * Math.PI);
 				context.setFillStyle('#79f1a4');
 				context.fill()
-				for(var i=1 ; i<this.hourly.length;i++){
+				for (var i = 1; i < this.hourly.length; i++) {
 					context.beginPath()
-					context.arc(width / 2 + width * i, 8+ 40 / height * (max - this.hourly[i].tmp),3,0,2*Math.PI);
+					context.arc(width / 2 + width * i, 8 + 40 / height * (max - this.hourly[i].tmp), 3, 0, 2 * Math.PI);
 					context.setFillStyle('#79f1a4');
 					context.fill()
 				}
-				
+
 				context.draw();
 			},
-				
+
 			goList() {
 				uni.navigateTo({
-					url: '../list/list?ss='+this.daily_one.ss+'&sr='+this.daily_one.sr,
+					url: '../list/list?ss=' + this.daily_one.ss + '&sr=' + this.daily_one.sr,
 					animationType: 'slide-in-right',
 					animationDuration: 300
 				})
@@ -678,8 +690,7 @@
 	.header {
 		width: 100%;
 		height: 450upx;
-		/* background: linear-gradient(to bottom , #5efce8 ,#736efe); */
-		background: linear-gradient(to bottom, #ff9d6c, #bb4e75);
+
 		border-bottom: 2upx #C0C0C0 solid;
 		box-shadow: 0 2upx 32upx 6upx #C0C0C0;
 	}
@@ -723,45 +734,54 @@
 		height: 320upx;
 		text-align: center;
 	}
-
-	.info text {
-		color: #fff;
-		display: inline-block;
-		text-shadow: 2upx 2upx 6upx #555;
-	}
-
-	.now-temperature {
-		width: 100%;
+	
+	.info .tips{
+		font-size: 32upx;
+		color: #777;
+	} 
+	
+	.info .now_info{
+		display: flex;
+		justify-content: space-around;
 		height: 180upx;
-		font-size: 140upx;
-		font-weight: 700;
-		margin-bottom: -30upx;
+		width: 360upx;
+		margin-left: 50%;
+		transform: translateX(-50%);
 	}
+	
+	
+	.info .now_info .now_info_left{
+		height: 180upx;
+		width: 180upx;
+	}
+	
+	.info .now_info .now_info_left .img{
+		height: 180upx;
+		width: 180upx;
+	}
+	
+	.info .now_info .now_info_right{
+		height: 180upx;
+		width: 180upx;
+	}
+	
+	.info .now_info .now_info_right .now_tmp{
+		font-size: 100upx;
+		font-weight: 500;
+		text-align: left;
+	}
+	
+	.info .now_info .now_info_right .now_situation{
+		font-size: 14upx;
+		text-align: left;
+		line-height: 12upx;
+		margin-left: 26upx;
+		color: #777;
+	}
+	
+	
 
-	.temperature {
-		width: 100%;
-		font-size: 36upx;
-		position: relative;
-		bottom: 10upx;
-	}
 
-	.weather-info {
-		width: 100%;
-		height: 45upx;
-		font-size: 36upx;
-		position: relative;
-		bottom: 25upx;
-	}
-
-	.aqi {
-		font-size: 36upx;
-		border-radius: 8upx;
-		border: 2upx #09BB07 solid;
-		background-color: #09BB07;
-		box-shadow: 2upx 2upx 6upx #555;
-		position: relative;
-		bottom: 25upx;
-	}
 
 	.scrolling {
 		width: 100%;
@@ -782,47 +802,28 @@
 		font-size: 32upx;
 		font-weight: 400;
 	}
-	
+
 	.w_info,
 	.w_time,
-	.w_tmp{
+	.w_tmp {
 		width: 2880upx;
 		height: 40upx;
 	}
-	
+
 	.info_inner,
 	.time_inner,
-	.tmp_inner{
+	.tmp_inner {
 		width: 120upx;
 		height: 40upx;
 		float: left;
 	}
-	
-	.myCanvas{
+
+	.myCanvas {
 		width: 2880upx;
 		height: 100upx;
 		margin-top: 20upx;
 	}
-	
 
-	/* .daily_forecast{
-		width: 90%;
-		height: 500upx;
-		text-align: center;
-		margin: 40upx auto 0;
-		border-radius: 10px;
-		box-shadow: -2px 0px 15px 2px #C0C0C0;
-	}
-	
-	.daily_boder{
-		width:14.25%;
-		margin: 10upx auto 0; 
-		font-size: 14px;
-		font-weight: 400;
-		color: #999;
-		float: left;
-	} */
-	
 	.lifestyle {
 		width: 90%;
 		height: 150upx;
@@ -830,14 +831,14 @@
 		box-shadow: -4upx 0upx 30upx 4upx #C0C0C0;
 		border-radius: 20upx;
 	}
-	
-	.lifestyle .lifestyle-inner{
+
+	.lifestyle .lifestyle-inner {
 		width: 80%;
 		height: 120upx;
 		text-align: center;
 		margin: 15upx 0 15upx 0;
 	}
-	
+
 	.lifestyle .lifestyle-inner .lifestyle-title {
 		width: 100%;
 		height: 45upx;
@@ -846,7 +847,7 @@
 		line-height: 32upx;
 		display: block;
 	}
-	
+
 	.lifestyle .lifestyle-inner .lifestyle-content {
 		width: 86%;
 		height: 75upx;
@@ -856,37 +857,37 @@
 		display: block;
 		margin: 0 auto;
 	}
-	
-	
-	.daily_forecast{
+
+
+	.daily_forecast {
 		width: 90%;
 		text-align: center;
 		margin: 40upx auto 0;
 		overflow: hidden;
 	}
-	
+
 	.daily_forecast :nth-child(3),
 	.daily_forecast :nth-child(5),
-	.daily_forecast :nth-child(7){
+	.daily_forecast :nth-child(7) {
 		float: right;
 	}
-	
-	.daily_one{
+
+	.daily_one {
 		width: 100%;
 		height: 180upx;
 		background: linear-gradient(to bottom left, #79f1a4, #0e5cad);
 		border-radius: 20upx;
 		position: relative;
 	}
-	
-	.daily_one .date{
+
+	.daily_one .date {
 		position: absolute;
 		top: 10upx;
 		left: 20upx;
 		font-size: 60upx;
 		color: #fff;
 	}
-	
+
 	.daily_one .week {
 		position: absolute;
 		top: 75upx;
@@ -894,16 +895,16 @@
 		font-size: 24upx;
 		color: #fff;
 	}
-	
+
 	.daily_one .tmp {
 		width: 100%;
 		font-size: 90upx;
 		color: #fff;
 		padding-top: 30upx;
-		
+
 	}
-	
-	.daily_one .icon{
+
+	.daily_one .icon {
 		position: absolute;
 		top: 10upx;
 		right: 15upx;
@@ -913,25 +914,25 @@
 		color: #fff;
 		text-align: center;
 	}
-	
+
 	.daily_one .icon .d_icon,
-	.daily_one .icon .n_icon{
+	.daily_one .icon .n_icon {
 		height: 60upx;
 	}
-	
-	.daily_one .icon text{
+
+	.daily_one .icon text {
 		float: right;
 		line-height: 32upx;
 		margin-top: 15upx;
 	}
-	
+
 	.daily_one .icon .d_icon image,
-	.daily_one .icon .n_icon image{
+	.daily_one .icon .n_icon image {
 		height: 60upx;
 		width: 60upx;
 		float: right;
 	}
-	
+
 	.daily_one .sun {
 		position: absolute;
 		bottom: 0;
@@ -939,17 +940,17 @@
 		font-size: 28upx;
 		color: #fff;
 	}
-	
-	.daily_one .sun .up{
+
+	.daily_one .sun .up {
 		float: left;
 		margin-left: 20upx;
 	}
-	
+
 	.daily_one .sun .down {
 		float: right;
 		margin-right: 20upx;
-	} 
-	
+	}
+
 	.daily {
 		width: 49%;
 		height: 220upx;
@@ -959,16 +960,16 @@
 		margin-top: 20upx;
 		float: left;
 	}
-	
-	
-	.daily .date{
+
+
+	.daily .date {
 		position: absolute;
 		top: 10upx;
 		left: 20upx;
 		font-size: 52upx;
 		color: #fff;
 	}
-	
+
 	.daily .week {
 		position: absolute;
 		top: 75upx;
@@ -976,7 +977,7 @@
 		font-size: 24upx;
 		color: #fff;
 	}
-	
+
 	.daily .tmp {
 		font-size: 40upx;
 		color: #fff;
@@ -984,8 +985,8 @@
 		right: 20upx;
 		top: 15upx;
 	}
-	
-	.daily .icon{
+
+	.daily .icon {
 		position: absolute;
 		top: 75upx;
 		right: 15upx;
@@ -995,24 +996,24 @@
 		color: #fff;
 		text-align: center;
 	}
-	
+
 	.daily .icon .d_icon,
-	.daily .icon .n_icon{
+	.daily .icon .n_icon {
 		height: 45upx;
 	}
-	
-	.daily .icon text{
+
+	.daily .icon text {
 		float: right;
 		margin-top: 8upx;
 	}
-	
+
 	.daily .icon .d_icon image,
-	.daily .icon .n_icon image{
+	.daily .icon .n_icon image {
 		height: 45upx;
 		width: 45upx;
 		float: right;
 	}
-	
+
 	.daily .sun {
 		position: absolute;
 		bottom: 0;
@@ -1020,15 +1021,14 @@
 		font-size: 28upx;
 		color: #fff;
 	}
-	
-	.daily .sun .up{
+
+	.daily .sun .up {
 		float: left;
 		margin-left: 20upx;
 	}
-	
+
 	.daily .sun .down {
 		float: right;
 		margin-right: 20upx;
-	} 
-	
+	}
 </style>
