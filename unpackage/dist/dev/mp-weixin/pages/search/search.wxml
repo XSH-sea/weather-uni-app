@@ -1,0 +1,1 @@
+<view class="search"><input class="uni-icon-search" type="text" confirm-type="search" data-event-opts="{{[['confirm',[['search']]],['focus',[['change']]],['input',[['__set_model',['','searchCity','$event',[]]]]]]}}" value="{{searchCity}}" bindconfirm="__e" bindfocus="__e" bindinput="__e"/></view>
