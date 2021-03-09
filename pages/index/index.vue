@@ -381,7 +381,13 @@
 			}
 		},
 		mounted() {
-
+			
+			this.myAjax({location:101010100,key:	
+"9e62c98f31bf418ca52ae1002c9b5bf7"}).then(res=>{
+				console.log(res,'结果')
+			}).catch(err=>{
+				console.log(err,'错误')
+			})
 			try {
 				if (!this.city) {
 					this.city = uni.getStorageSync('local_district');
