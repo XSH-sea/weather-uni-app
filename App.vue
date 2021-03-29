@@ -1,14 +1,15 @@
 <script>
 	export default {
 		onLaunch: function() {
-			console.log('App Launch');
+			//获取当前定位
 			uni.getLocation({
 				type:'wgs84',
 				geocode:true,
 				success:function(res){
-					var district=res.address.district.substr(0,res.address.district.length-1);
-					uni.setStorageSync("local_district",district);
-					var cityArr=uni.getStorageSync("city_key");
+					let result=res.address.district
+					var district=result.substr(0,result.length-1);
+					uni.setStorage("local_district",district);
+					var cityArr=uni.getStorage("city_key");
 					//判断是否第一次使用
 					if(cityArr==''){
 						//第一次使用，将定位城市存入城市列表
@@ -20,6 +21,7 @@
 						cityArr[0]=district;
 						uni.setStorageSync("city_key",cityArr);
 					}
+					console.log(district)
 				}
 			})
 		},

@@ -29,11 +29,6 @@
 				this.right.push(0);
 			}
 			
-			console.log(option.sr,option.ss)
-			
-			
-			
-			
 			// this.tmp=[];
 			for(var i=0;i<this.city.length;i++){
 				uni.request({
