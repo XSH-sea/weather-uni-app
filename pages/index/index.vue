@@ -44,24 +44,52 @@
 			<view class="title">
 				24小时
 			</view>
-			<scroll-view scroll-x="true" @scroll="scroll"  class="scroll-view" >
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
-				<view id="demo1" class="scroll-view-item uni-bg-red"></view>
+			<scroll-view scroll-x="true" class="scroll-view">
+				<view id="demo1" class="scroll-view-item" v-for="(item,index) in hours" :key="index">
+					<view class="box">
+						<view class="time">
+							{{addZore(new Date(item.fxTime).getHours())}}:{{addZore(new Date(item.fxTime).getMinutes())}}
+						</view>
+						<view class="img">
+							<image class="img" :src="'../../static/weather-icon/'+item.icon+'.png'" mode=""></image>
+						</view>
+						<view class="temp">
+							{{item.temp}}°
+						</view>
+					</view>
+
+				</view>
 			</scroll-view>
 		</view>
 		<!-- 未来天气预报 -->
 		<view class="daily">
 			<view class="title">
-				未来15天预报
+				未来7天预报
 			</view>
-			<scroll-view scroll-x="true" @scroll="scroll"  class="daily_scroll-view" >
-				
-			</scroll-view>
+
+			<view class="daily_warp">
+				<view class="cav"></view>
+				<view v-for="(item,index) in daily" :key="index" class="daily_item">
+					<view class="top">
+						<view class="fxDate">
+							{{item.fxDate.substr(5,5).replace('-','/')}}
+						</view>
+						<view class="textDay">{{item.textDay}}</view>
+						<view class="iconDay">
+							<image class="iconDay" :src="'../../static/weather-icon/'+item.iconDay+'.png'" mode=""></image>
+						</view>
+						<view class="tempMax">{{item.tempMax}}°</view>
+					</view>
+					
+					<view class="bottom">
+						<view class="tempMin">{{item.tempMin}}°</view>
+						<view class="iconNight">
+							<image class="iconNight" :src="'../../static/weather-icon/'+item.iconNight+'.png'" mode=""></image>
+						</view>
+						<view class="textNight">{{item.textNight}}</view>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -80,15 +108,20 @@
 				wind_dir: "东北风", //风向
 				wind_sc: "3级", //风力
 				hum: "98%", //湿度
-				pcpn: "0.5" //降水量
+				pcpn: "0.5", //降水量
+				hours: [], //没小时天气预报
+				daily: [], //未来天气预报
 			}
+
 		},
 		mounted() {
 			if (!this.city) {
 				//从缓存中获取app初始化时存入的地址
 				this.city = uni.getStorage('local_district');
 				// this.fetchNowWeather()
-				// this.fetchHoursWeather()
+				this.fetchHoursWeather()
+				this.fetchDayWeather()
+
 			}
 
 
@@ -170,8 +203,6 @@
 
 			}
 
-
-
 		},
 		onLoad: function(option) {
 			if (option.city != undefined) {
@@ -208,13 +239,25 @@
 					console.log(err, '错误')
 				})
 			},
-			
+
 			//获取24小时天气状况
-			fetchHoursWeather(){
+			fetchHoursWeather() {
 				this.myAjax('24h', {
 					location: '101010100',
 				}).then(res => {
 					console.log(res, '结果')
+					this.hours = res.hourly
+				}).catch(err => {
+					console.log(err, '错误')
+				})
+			},
+			//获取未来天气状况
+			fetchDayWeather() {
+				this.myAjax('7d', {
+					location: '101010100',
+				}).then(res => {
+					console.log(res, '结果')
+					this.daily = res.daily
 				}).catch(err => {
 					console.log(err, '错误')
 				})
@@ -366,46 +409,151 @@
 		margin-top: 8upx;
 		color: #777;
 	}
-	
-	.hour{
-		margin-top:50upx;
+
+	.hour {
+		margin-top: 50upx;
 	}
-	
-	.hour .title{
+
+	.hour .title {
 		font-size: 36upx;
 		font-weight: 600;
-		font-family:  Arial, Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
 		margin-left: 30upx;
 	}
-	
-	.hour .scroll-view{
-		 white-space: nowrap
+
+	.hour .scroll-view {
+		white-space: nowrap;
+		width: 100%;
 	}
-	
-	.hour .scroll-view-item{
+
+	.hour .scroll-view-item {
 		height: 200upx;
 		width: 140upx;
 		border-radius: 10upx;
-		margin:  15upx 0 15upx 30upx;
-		display:inline-block;
-		box-shadow: 0upx 0upx 16upx 4upx  #eee;
+		margin: 15upx;
+		display: inline-block;
+		box-shadow: 0upx 0upx 16upx 4upx #eee;
 	}
-	
-	.daily{
-		margin-top:50upx;
+
+	.hour .scroll-view-item .box {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.hour .scroll-view-item .time {
+		font-size: 28upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.hour .scroll-view-item .time {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.hour .scroll-view-item .img {
+		height: 80upx;
+		width: 80upx;
+	}
+
+	.daily {
+		margin-top: 50upx;
 		padding: 30upx;
 	}
-	
-	.daily .title{
+
+	.daily .title {
 		font-size: 36upx;
 		font-weight: 600;
-		font-family:  Arial, Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.daily .daily_warp {
+		margin-top: 20upx;
+		height: 500upx;
+		box-shadow: 0upx 0upx 16upx 4upx #eee;
+		border-radius: 10upx;
+		padding: 30upx 0;
+		display: flex;
+		justify-content: space-around;
+		position: relative;
 	}
 	
-	.daily .daily_scroll-view{
-		margin-top: 20upx;
-		height: 600upx;
-		box-shadow: 0upx 0upx 16upx 4upx  #eee;
-		border-radius: 10upx;
+	.daily .daily_warp .cav{
+		position: absolute;
+		width: 100%;
+		height:32%;
+		background-color: #007AFF;
+		top:38%;
+		right: 0;
+		z-index: 999;
 	}
+
+	.daily .daily_warp .daily_item {
+		height: 100%;
+		border-right: 0.5upx solid #eee;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.daily .daily_warp .daily_item:last-child {
+		border-right: none
+	}
+	
+	.daily .daily_warp .daily_item .top{
+		width: 100%;
+		height: 36%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.daily .daily_warp .top .fxDate{
+		font-size: 24upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	.daily .daily_warp .top .textDay{
+		font-size: 18upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	.daily .daily_warp .top .iconDay{
+		width: 50upx;
+		height: 50upx;
+	}
+	
+	.daily .daily_warp .top .tempMax{
+		font-size: 28upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	.daily .daily_warp .daily_item .bottom{
+		width: 100%;
+		height: 26%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.daily .daily_warp .bottom .tempMin{
+		font-size: 28upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	.daily .daily_warp .bottom .iconNight{
+		width: 50upx;
+		height: 50upx;
+	}
+	
+	.daily .daily_warp .bottom .textNight{
+		font-size: 18upx;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	
 </style>
